@@ -1,0 +1,426 @@
+<div class="main-content">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">                        
+            <div class="alert alert-info alert-with-icon" data-notify="container">
+                <i data-notify="icon" class="material-icons">info</i>
+                <span data-notify="message">
+                    Para dar de alta un producto, asegurate de que los campos en cada tab,
+                    esten completados correctamente.
+                </span>
+            </div>                            
+            <div class="card card-nav-tabs">
+                <div class="card-header" data-background-color="red">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <span class="nav-tabs-title">Producto:</span>
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="active">
+                                    <a href="#basic" data-toggle="tab">
+                                        <i class="material-icons">format_align_justify</i>
+                                        Básica
+                                    <div class="ripple-container"></div></a>
+                                </li>
+                                <li class="">
+                                    <a href="#characteristics" data-toggle="tab">
+                                        <i class="material-icons">bubble_chart</i>
+                                        Caracteristicas
+                                    <div class="ripple-container"></div></a>
+                                </li>
+                                <li class="">
+                                    <a href="#category" data-toggle="tab">
+                                        <i class="material-icons">extension</i>
+                                        Categoría
+                                    <div class="ripple-container"></div></a>
+                                </li>
+                                <li class="">
+                                    <a href="#images" data-toggle="tab">
+                                        <i class="material-icons">photo</i>
+                                        Imagenes
+                                    <div class="ripple-container"></div></a>
+                                </li>                                
+                                <li class="">
+                                    <a href="#provider" data-toggle="tab">
+                                        <i class="material-icons">business</i>
+                                        Proveedor
+                                    <div class="ripple-container"></div></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <form id="crear-producto" (ngSubmit)="crear(FormCrearProducto)" #FormCrearProducto="ngForm">                    
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="basic">
+                                <h3 class="text-center">Ingrese la información básica de su producto.</h3>
+                                <div class="col-md-8 col-md-offset-2">
+                                    
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Nombre del producto</label>
+                                        <input type="text" class="form-control" name="nombre"
+                                            [(ngModel)]="producto.nombre"
+                                            #nombre="ngModel" required
+                                            minlength="2" maxlength="80">
+
+                                        <div class="help-block text-danger" 
+                                            *ngIf="nombre.errors && (nombre.dirty || nombre.touched)">
+                                            <span [hidden]="!nombre.errors.required">
+                                                Nombre requerido
+                                            </span>
+
+                                            <span [hidden]="!nombre.errors.minlength">
+                                                Ingrese al menos 2 caractateres para el nombre del producto.
+                                            </span>
+
+                                            <span [hidden]="!nombre.errors.maxlength">
+                                                El nombre del producto no puede contener mas de 80 caracteres.                                            
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Descripción</label>
+                                        <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label">
+                                                Resumen descriptivo sobre las caracteristicas del producto. (máximo 1500 caracteres)
+                                            </label>
+                                            <textarea class="form-control" rows="5"
+                                                name="descripcion"
+                                                [(ngModel)]="producto.descripcion"
+                                                #descripcion="ngModel" required
+                                                minlength="30" maxlength="1500"></textarea>
+
+                                            <div class="help-block text-danger" 
+                                                *ngIf="descripcion.errors && (descripcion.dirty || descripcion.touched)">
+                                                <span [hidden]="!descripcion.errors.required">
+                                                    Descripción requerida
+                                                </span>
+
+                                                <span [hidden]="!descripcion.errors.minlength">
+                                                    Ingrese al menos 30 caractateres para el descripción del producto.
+                                                </span>
+
+                                                <span [hidden]="!descripcion.errors.maxlength">
+                                                    La descripción del producto no puede contener mas de 1500 caracteres.
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Precio</label>
+                                        <input type="number" class="form-control"
+                                            name="precio" [(ngModel)]="producto.precio"
+                                            #precio="ngModel" required>
+
+                                        <div class="help-block text-danger" 
+                                            *ngIf="precio.errors && (precio.dirty || precio.touched)">
+                                            <span [hidden]="!precio.errors.required">
+                                                Precio requerido
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Costo de envío</label>
+                                        <input type="number" class="form-control" name="costoEnvio"
+                                            [(ngModel)]="producto.costoEnvio" #costoEnvio="ngModel"
+                                            required>
+
+                                        <div class="help-block text-danger" 
+                                            *ngIf="costoEnvio.errors && (costoEnvio.dirty || costoEnvio.touched)">
+                                            <span [hidden]="!costoEnvio.errors.required">
+                                                Costo de envío requerido
+                                            </span>
+                                        </div>
+                                    </div>                                
+
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Piezas disponibles</label>
+                                        <input type="number" class="form-control" name="piezasDisponibles"
+                                            [(ngModel)]="producto.piezasDisponibles" #piezasDisponibles="ngModel"
+                                            required>
+
+                                        <div class="help-block text-danger" 
+                                            *ngIf="piezasDisponibles.errors && (piezasDisponibles.dirty || piezasDisponibles.touched)">
+                                            <span [hidden]="!piezasDisponibles.errors.required">
+                                                Piezas disponibles es requerido
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="resurtir" [(ngModel)]="producto.resurtir"> Resurtir (Opcional)
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-black is-empty">
+                                        <label class="control-label">Fecha de expiración (requerida)</label>
+                                        <my-date-picker name="fechaExpiracion" [options]="myDatePickerOptions" 
+                                            (dateChanged)="onFechaExpiracionChanged($event)"
+                                            [(ngModel)]="fechaExpiracion" required></my-date-picker>
+                                        <p class="text-danger">Seleccione una fecha de expiración para su producto.</p>
+                                    </div>
+                                    
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="oferta" [(ngModel)]="producto.oferta">
+                                            ¿Este producto se encuentra en oferta?
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="characteristics">
+                                <div class="col-md-8 col-md-offset-2">                                    
+                                    
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Modelo (opcional)</label>
+                                        <input type="text" class="form-control"
+                                            name="modelo" [(ngModel)]="producto.modelo"
+                                            #modelo="ngModel"
+                                            maxlength="20">
+
+                                        <div class="help-block text-danger" 
+                                            *ngIf="modelo.errors && (modelo.dirty || modelo.touched)">
+                                            <span [hidden]="!modelo.errors.required">
+                                                El modelo no puede contener más de 20 caracteres.
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        
+                                        <div class="form-group form-black label-floating is-empty">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="showColores" [(ngModel)]="showColores">
+                                                    ¿Su producto contará con una variedad de colores? (opcional)
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-black label-floating is-empty" *ngIf="showColores">
+                                            <h5>Selecciona los colores para tu producto</h5>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <h4>
+                                                        <span class="label-color">{{color}}</span>
+                                                        <span class="color" [(colorPicker)]="color" 
+                                                              [cpPosition]="'bottom'"
+                                                              [style.background]="color"
+                                                              [cpPositionOffset]="'50%'"
+                                                              [cpPositionRelativeToArrow]="true"></span>
+                                                    </h4>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <a class="btn btn-info btn-sm" (click)="addColor()">
+                                                        Agregar color
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <ul class="wrap-bullet-colors">
+                                                    <li *ngFor="let c of colores; let i = index;">
+                                                        <span [ngStyle]="{'background-color': c}"></span>
+                                                        <i (click)="deleteColor(i)" class="material-icons">clear</i>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>    
+
+
+                                    <div>
+                                        <div class="form-group form-black label-floating is-empty">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="showCaracteristicas" 
+                                                        [(ngModel)]="showCaracteristicas">
+                                                    ¿Desea agregar otras caracteristicas al producto? (opcional)
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group" *ngIf="showCaracteristicas">
+                                            <div class="row">                                                
+                                                
+                                                <div class="form-group form-black label-floating is-empty">
+                                                    <h6>Nombre de la característica</h6>
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Ejemplo: Talla" 
+                                                        name="nombreCaracteristica"                                                         
+                                                        [(ngModel)]="nuevaCaracteristica.nombre"
+                                                        #nombreCaracteristica="ngModel"
+                                                        maxlength="20">
+
+                                                    <div class="help-block text-danger" 
+                                                        *ngIf="nombreCaracteristica.errors && (nombreCaracteristica.dirty || nombreCaracteristica.touched)">
+                                                        <span [hidden]="!nombreCaracteristica.errors.required">
+                                                            El nombre de caracteristica no puede contener más de 20 caracteres.
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group form-black label-floating is-empty">
+                                                    <h6>Valores de la característica</h6>
+                                                        <input type="text" class="form-control"
+                                                            name="valorCaracteristica"
+                                                            placeholder="Ejemplo: Chica, Mediana, Grande" 
+                                                            [(ngModel)]="nuevaCaracteristica.valor">
+                                                </div>
+
+                                                <a class="btn btn-info btn-sm" (click)="addCaracteristica()">
+                                                    Agregar
+                                                </a>
+
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-md-4 wrap-caracteristicas" *ngFor="let c of caracteristicas; let i = index;">
+                                                        <p>
+                                                            <span class="pull-left">{{c.nombre}}</span>
+                                                            <span class="pull-right" (click)="deleteCaracteristica(i)">
+                                                                <i class="material-icons">clear</i>
+                                                            </span>
+                                                        </p>
+                                                        <div class="clearfix"></div>
+                                                        <ul *ngFor="let v of c.valores">
+                                                            <li>{{v}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>                                
+                                </div>
+                            </div>                            
+
+                            <div class="tab-pane" id="category">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <h3 class="text-center">Categoría del Producto</h3>
+                                    <div class="form-group is-empty">
+                                        <label class="control-label">Categoría</label>
+                                        <select class="form-control"
+                                            name="categoria" [(ngModel)]="categoria._id" required>
+                                            <option selected="true" disabled="disabled" value="0">
+                                                Selecciona una categoría
+                                            </option>
+                                            <option *ngFor="let c of categorias" [value]="c._id">
+                                                {{c.categoria}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>  
+                            </div>
+
+                            <div class="tab-pane" id="images">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <h3 class="text-center">Imagen del Producto</h3>
+                                    <div class="form-group is-empty">
+                                        <input type="file" name="imagen_1" id="imagen_1" 
+                                            class="form-control img-producto"
+                                            accept=".png,.jpg,image/png,image/jpeg" (change)="fileChangeEvent($event, 0)">
+
+                                        <p class="text-info">
+                                            Formatos de imagen JPG, PNG no mayor a 3MB
+                                        </p>
+
+                                        <div class="help-block text-danger" *ngIf="alertFile[0].errValid">
+                                            {{alertFile[0].message}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group is-empty">
+                                        <input type="file" name="imagen_2" id="imagen_2" 
+                                            class="form-control img-producto"
+                                            accept=".png,.jpg,image/png,image/jpeg" (change)="fileChangeEvent($event, 1)">
+
+                                        <p class="text-info">
+                                            Formatos de imagen JPG, PNG no mayor a 3MB
+                                        </p>
+
+                                        <div class="help-block text-danger" *ngIf="alertFile[1].errValid">
+                                            {{alertFile[1].message}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group is-empty">
+                                        <input type="file" name="imagen_3" id="imagen_3" 
+                                            class="form-control img-producto"
+                                            accept=".png,.jpg,image/png,image/jpeg" (change)="fileChangeEvent($event, 2)">
+
+                                        <p class="text-info">
+                                            Formatos de imagen JPG, PNG no mayor a 3MB
+                                        </p>
+
+                                        <div class="help-block text-danger" *ngIf="alertFile[2].errValid">
+                                            {{alertFile[2].message}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group is-empty">
+                                        <input type="file" name="imagen_4" id="imagen_4" 
+                                            class="form-control img-producto"
+                                            accept=".png,.jpg,image/png,image/jpeg" (change)="fileChangeEvent($event, 3)">
+
+                                        <p class="text-info">
+                                            Formatos de imagen JPG, PNG no mayor a 3MB
+                                        </p>
+
+                                        <div class="help-block text-danger" *ngIf="alertFile[3].errValid">
+                                            {{alertFile[3].message}}
+                                        </div>
+                                    </div>
+                                </div>       
+                            </div>
+
+                            <div class="tab-pane" id="provider">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <h3 class="text-center">Asignar Proveedor/Empresa</h3>
+                                    <div class="form-group is-empty">                                        
+                                        <select class="form-control"
+                                            name="proveedor" [(ngModel)]="proveedor._id" required>
+                                            <option selected="true" disabled="disabled" value="0">
+                                                Selecciona un proveedor
+                                            </option>
+                                            <option *ngFor="let p of proveedores" [value]="p._id">
+                                                {{p.nombreEmpresa}}
+                                            </option>
+                                        </select>
+                                    </div>                                
+                                </div>
+                            </div>                            
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-md-8 col-md-offset-2">
+                            <button type="submit" class="btn btn-danger" 
+                                [disabled]="!FormCrearProducto.form.valid">
+                                Crear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+
+        </div>        
+    </div>
+</div>
+</div>

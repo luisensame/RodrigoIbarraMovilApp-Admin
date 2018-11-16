@@ -1,0 +1,41 @@
+<div class="main-content">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        	<div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Lista de proveedores(empresas)</h4>
+                </div>
+                <div class="card-content table-responsive">
+                    <div class="alert alert-warning alert-with-icon" data-notify="container"
+                        *ngIf="!proveedores || proveedores.length < 1">
+                        <i data-notify="icon" class="material-icons">info</i>
+                        <span data-notify="message">
+                            No se encontraron proveedores existentes, si deseas crear uno
+                            da click <a [routerLink]="['/dashboard/alta-proveedor']">aquí</a>
+                        </span>
+                    </div>
+                    <table class="table" *ngIf="proveedores && proveedores.length > 0">
+                        <thead class="text-info">
+                            <tr>
+                                <th>Nombre Empresa</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>                                
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let proveedor of proveedores;">
+                                <td>{{proveedor.nombreEmpresa}}</td>
+                                <td>{{proveedor.email}}</td>
+                                <td>{{proveedor.telefono}}</td>
+                                <td><a [routerLink]="['/dashboard/detail-proveedor', proveedor._id]" class="btn btn-info btn-sm">Actualizar</a></td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+</div>

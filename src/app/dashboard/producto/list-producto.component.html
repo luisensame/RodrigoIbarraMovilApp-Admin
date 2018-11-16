@@ -1,0 +1,47 @@
+<div class="main-content">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        	<div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Lista de productos</h4>                    
+                </div>
+                <div class="card-content table-responsive">
+                    <div class="alert alert-warning alert-with-icon" data-notify="container"
+                        *ngIf="!productos || productos.length < 1">
+                        <i data-notify="icon" class="material-icons">info</i>
+                        <span data-notify="message">
+                            No se encontraron productos existentes, si deseas crear uno
+                            da click <a [routerLink]="['/dashboard/alta-producto']">aquí</a>
+                        </span>
+                    </div>
+                    <table class="table" *ngIf="productos && productos.length > 0 ">
+                        <thead class="text-danger">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Costo Envío</th>
+                                <th>Piezas disponibles</th>
+                                <th>Imagen</th>
+                                <th>Empresa</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of productos;">
+                                <td>{{producto.nombre}}</td>
+                                <td class="text-danger">{{producto.precio}}</td>
+                                <td class="text-info">{{producto.costoEnvio}}</td>
+                                <td class="text-warning">{{producto.piezasDisponibles}}</td>
+                                <td><a href="{{producto.imagenes[0]}}" target="_blank">Ver</a></td>
+                                <td>{{producto.proveedor.nombreEmpresa}}</td>
+                                <td><a [routerLink]="['/dashboard/detail-producto', producto._id]" class="btn btn-info btn-sm">Actualizar</a></td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+</div>

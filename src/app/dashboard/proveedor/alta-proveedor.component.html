@@ -1,0 +1,298 @@
+<div class="main-content">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Alta de Empresa (Proveedor)</h4>
+                    <p class="category">
+                        Esta sección te permite dar de alta una Empresa (proveedor).
+                    </p>
+                </div>
+                <div class="card-content">
+                    <form id="crear-proveedor" (ngSubmit)="crearProveedor()" #FormCrearProveedor="ngForm">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h3>Datos de la Empresa</h3>
+                            </div>
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Nombre del empresa</label>
+                                    <input type="text" class="form-control" id="nombre_empresa"
+                                        [(ngModel)]="proveedor.nombreEmpresa"
+                                        #nombre_empresa="ngModel"
+                                        name="nombre_empresa" 
+                                        required
+                                        minlength="3" 
+                                        maxlength="100">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="nombre_empresa.errors && (nombre_empresa.dirty || nombre_empresa.touched)">
+                                        <span [hidden]="!nombre_empresa.errors.required">
+                                            Nombre de la empresa requerido                                            
+                                        </span>
+
+                                        <span [hidden]="!nombre_empresa.errors.minlength">
+                                            Ingrese al menos 3 caractateres para el nombre de la empresa.
+                                        </span>
+
+                                        <span [hidden]="!nombre_empresa.errors.maxlength">
+                                            El nombre de la empresa no puede contener mas de 100 caracteres.                                            
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>       
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Email</label>
+                                    <input type="email" class="form-control" id="email_empresa" 
+                                        [(ngModel)]="proveedor.email"
+                                        #email_empresa="ngModel"
+                                        name="email_empresa" 
+                                        required
+                                        maxlength="80">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="email_empresa.errors && (email_empresa.dirty || email_empresa.touched)">
+                                        <span [hidden]="!email_empresa.errors.required">
+                                            Email requerido.
+                                        </span>                                        
+
+                                        <span [hidden]="!email_empresa.errors.maxlength">
+                                            El email no puede contener mas de 80 caracteres.
+                                        </span>
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Teléfono (10 dígitos)</label>
+                                    <input type="tel" class="form-control" id="telefono_empresa"                                        
+                                        [(ngModel)]="proveedor.telefono"
+                                        #telefono_empresa="ngModel"
+                                        name="telefono_empresa" required
+                                        minlength="10" 
+                                        maxlength="10">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="telefono_empresa.errors && (telefono_empresa.dirty || telefono_empresa.touched)">
+                                        <span [hidden]="!telefono_empresa.errors.required">
+                                            Teléfono requerido.
+                                        </span>                                        
+
+                                        <span [hidden]="!telefono_empresa.errors.maxlength || !telefono_empresa.errors.minlength">
+                                            Ingrese 10 digítos
+                                        </span>
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Dirección</label>
+                                    <input type="text" class="form-control" id="direccion_empresa" 
+                                        [(ngModel)]="proveedor.direccion"
+                                        #direccion_empresa="ngModel"
+                                        name="direccion_empresa"
+                                        required
+                                        maxlength="250">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="direccion_empresa.errors && (direccion_empresa.dirty || direccion_empresa.touched)">
+                                        <span [hidden]="!direccion_empresa.errors.required">
+                                            La dirección es requerida
+                                        </span>                                        
+
+                                        <span [hidden]="!direccion_empresa.errors.maxlength">
+                                            La dirección no puede contener mas de 250 caracteres.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>                           
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <p>Estado</p>
+                                <div class="form-group is-empty">                                    
+                                    <select class="form-control"
+                                        name="estado" [(ngModel)]="estado._id" required>
+                                        <option selected="true" disabled="disabled" value="0">
+                                            Selecciona un estado
+                                        </option>
+                                        <option 
+                                            *ngFor="let e of catalogoEstados" [value]="e._id">
+                                            {{e.estado}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Código postal</label>
+                                    <input type="text" class="form-control" id="codigo_postal_empresa" 
+                                        [(ngModel)]="proveedor.codigoPostal"
+                                        #codigo_postal_empresa="ngModel"
+                                        name="codigo_postal_empresa"
+                                        required maxlength="5" minlength="5">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="codigo_postal_empresa.errors && (codigo_postal_empresa.dirty || codigo_postal_empresa.touched)">
+                                        <span [hidden]="!codigo_postal_empresa.errors.required">
+                                            El código postal es requerido
+                                        </span>                                        
+
+                                        <span [hidden]="!codigo_postal_empresa.errors.maxlength">
+                                            El código postal no puede contener mas de 5 caracteres.
+                                        </span>
+
+                                        <span [hidden]="!codigo_postal_empresa.errors.minlength">
+                                            El código postal no puede contener menos de 5 caracteres.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>                           
+
+                            
+                            <div class="col-md-8 col-md-offset-2">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <h3>Datos del Representante</h3>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Nombre del Representante</label>
+                                    <input type="text" class="form-control" id="nombre_representante"                                         
+                                        [(ngModel)]="representante.nombre"
+                                        #nombre_representante="ngModel"
+                                        name="nombre_representante" 
+                                        required
+                                        minlength="2" 
+                                        maxlength="100">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="nombre_representante.errors && (nombre_representante.dirty || nombre_representante.touched)">
+                                        <span [hidden]="!nombre_representante.errors.required">
+                                            Nombre requerido.
+                                        </span>                                        
+
+                                        <span [hidden]="!nombre_representante.errors.maxlength || !nombre_representante.errors.minlength">
+                                            Ingrese mínimo 2 y máximo 100 caracteres.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Apellidos</label>
+                                    <input type="text" class="form-control" id="apellidos_representante" 
+                                        [(ngModel)]="representante.apellidos"
+                                        #apellidos_representante="ngModel"
+                                        required
+                                        name="apellidos_representante"
+                                        minlength="2" 
+                                        maxlength="100">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="apellidos_representante.errors && (apellidos_representante.dirty || apellidos_representante.touched)">
+                                        <span [hidden]="!apellidos_representante.errors.required">
+                                            Los apellidos son requeridos.
+                                        </span>                                        
+
+                                        <span [hidden]="!apellidos_representante.errors.maxlength || !apellidos_representante.errors.minlength">
+                                            Ingrese mínimo 2 y máximo 100 caracteres.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Email</label>
+                                    <input type="email" class="form-control" id="email_representante"
+                                        [(ngModel)]="representante.email" 
+                                        #email_representante="ngModel"
+                                        name="email_representante"
+                                        required
+                                        maxlength="80">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="email_representante.errors && (email_representante.dirty || email_representante.touched)">
+                                        <span [hidden]="!email_representante.errors.required">
+                                            Email requerido.
+                                        </span>                                        
+
+                                        <span [hidden]="!email_representante.errors.maxlength || !email_representante.errors.minlength">
+                                            El email no puede contener mas de 100 caracteres.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Teléfono (10 dígitos)</label>
+                                    <input type="tel" class="form-control"
+                                        id="telefono_representante"
+                                        [(ngModel)]="representante.telefono"
+                                        #telefono_representante="ngModel"
+                                        name="telefono_representante"
+                                        required
+                                        minlength="10" 
+                                        maxlength="10">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="telefono_representante.errors && (telefono_representante.dirty || telefono_representante.touched)">
+                                        <span [hidden]="!telefono_representante.errors.required">
+                                            Teléfono requerido.
+                                        </span>                                        
+
+                                        <span [hidden]="!telefono_representante.errors.maxlength || !telefono_representante.errors.minlength">
+                                            Ingrese 10 dígitos
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Dirección</label>
+                                    <input type="tel" class="form-control"
+                                        id="direccion_representante" 
+                                        [(ngModel)]="representante.direccion"
+                                        #direccion_representante="ngModel"
+                                        name="direccion_representante"
+                                        required
+                                        maxlength="250">
+
+                                    <div class="help-block text-danger" 
+                                        *ngIf="direccion_representante.errors && (direccion_representante.dirty || direccion_representante.touched)">
+                                        <span [hidden]="!direccion_representante.errors.required">
+                                            Dirección requerida.
+                                        </span>                                        
+
+                                        <span [hidden]="!direccion_representante.errors.maxlength || !direccion_representante.errors.minlength">
+                                            La dirección no puede contener más de 250 caractres.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+
+                        <button type="submit" class="btn btn-danger pull-right"
+                            [disabled]="!FormCrearProveedor.form.valid">
+                            Crear
+                        </button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+</div>

@@ -1,0 +1,44 @@
+<div class="wrapper">  
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-xs-1 backgroundLogin">
+        
+      </div>
+      <div class="col-md-6 col-xs-11">
+        <div class="col-md-12" style="margin-top: 15%;">
+          <img src="assets/img/logo.png" alt="Maxxis App" class="logo logologin">
+        </div>
+        <div class="col-md-12">      
+          <div class="form-container">
+            <div class="sub-form-container">                        
+              <form name="loginForm" id="loginForm" #loginForm="ngForm" (ngSubmit)="login()">
+                
+                <div class="form-group">
+                  <label style="color: black;">Email:</label>
+                  <input type="email" id="email" name="email" required [(ngModel)]="usuarioStaff.email">
+                </div>          
+                
+                <div class="form-group">
+                  <label style="color: black;">Passowrd: </label>
+                  <input type="password" id="password" name="password" required [(ngModel)]="usuarioStaff.password">
+                </div>                    
+
+                <div class="text-danger text-center">
+                  {{message}}
+                </div>
+                
+                <button type="submit" [disabled]="!loginForm.form.valid" style="width: 70%;margin-left: auto;margin-right: auto; display: block;">
+                  Iniciar Sesión 
+                </button>
+              </form>      
+            </div>      
+          </div>    
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<loader-cmp *ngIf="procesando"></loader-cmp>
